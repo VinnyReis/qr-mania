@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import  QRCodeStyling, { FileExtension } from 'qr-code-styling'
+import Input from './components/input';
+import Select from './components/select';
+import Button from './components/button';
 import './App.css'
 
 const qrCode = new QRCodeStyling({
@@ -47,20 +50,33 @@ function App() {
 
   return (
     <>
-      <button className='button' onClick={() => updateColor('#d20b2e')}>Vermelho</button>
-      <button className='button' onClick={() => updateColor('#2cba43')}>Verde</button>
-      <button className='button' onClick={() => updateColor('#4267b2')}>Azul</button>
-      <div>
-        <input className='input' style={{ width: '290px' }} type='text' defaultValue='https://facebook.com' onChange={(e) => { e.preventDefault(); setData(e.target.value)}}/>
+      <div className='flex flex-col space-y-3'>
+        <div className='flex space-x-3 justify-center'>
+          <Button onClick={() => updateColor('#d20b2e')}>Vermelho</Button>
+          <Button onClick={() => updateColor('#2cba43')}>Verde</Button>
+          <Button onClick={() => updateColor('#4267b2')}>Azul</Button>
+        </div>
+        <div>
+          <Input
+            defaultValue='https://facebook.com'
+            onChange={(e: any) => { e.preventDefault(); setData(e.target.value)}}
+          />
+        </div>
+        {/* QR Code Preview area */}
+        <div className='flex justify-center'>
+          <div ref={ref}/>
+        </div>
+
+        <div className='flex space-x-3 justify-center'>
+          <Select onChange={(e: any) => setFormat(e.target.value as FileExtension)}>
+            <option value='png'>PNG</option>
+            <option value='jpg'>JPG</option>
+            <option value='webp'>WEBP</option>
+            <option value='svg'>SVG</option>
+          </Select>
+          <Button onClick={onDonwloadClick}>Download</Button>
+        </div>
       </div>
-      <div ref={ref}/>
-      <select className='input' onChange={(e) => setFormat(e.target.value as FileExtension)} style={{ width: '200px' }}>
-        <option value='png'>PNG</option>
-        <option value='jpg'>JPG</option>
-        <option value='webp'>WEBP</option>
-        <option value='svg'>SVG</option>
-      </select>
-      <button className='button button-primary' onClick={onDonwloadClick}>Download</button>
     </>
   )
 }
