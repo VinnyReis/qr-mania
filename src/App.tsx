@@ -3,7 +3,6 @@ import  QRCodeStyling, { FileExtension } from 'qr-code-styling'
 import Input from './components/input';
 import Select from './components/select';
 import Button from './components/button';
-import './App.css'
 
 const qrCode = new QRCodeStyling({
   width: 300,
@@ -50,31 +49,35 @@ function App() {
 
   return (
     <>
-      <div className='flex flex-col space-y-3'>
-        <div className='flex space-x-3 justify-center'>
-          <Button onClick={() => updateColor('#d20b2e')}>Vermelho</Button>
-          <Button onClick={() => updateColor('#2cba43')}>Verde</Button>
-          <Button onClick={() => updateColor('#4267b2')}>Azul</Button>
-        </div>
-        <div>
+      <div className=' container my-10 mx-auto flex space-x-3'>
+        <div className='flex-auto bg-white p-3 space-y-3 border border-slate-200 rounded-md shadow-sm'>
+          <p className='flex space-x-3 font-semibold text-lg text-slate-600'>URL</p>
           <Input
             defaultValue='https://facebook.com'
             onChange={(e: any) => { e.preventDefault(); setData(e.target.value)}}
           />
+          <p className='flex space-x-3 font-semibold text-lg text-slate-600'>Cor</p>
+          <div className='flex space-x-3'>
+            <Button onClick={() => updateColor('#d20b2e')}>Vermelho</Button>
+            <Button onClick={() => updateColor('#2cba43')}>Verde</Button>
+            <Button onClick={() => updateColor('#4267b2')}>Azul</Button>
+          </div>
         </div>
-        {/* QR Code Preview area */}
-        <div className='flex justify-center'>
-          <div ref={ref}/>
-        </div>
+        <div className='min-w-80 bg-white p-3 border border-slate-200 rounded-md shadow-sm'>
+          {/* QR Code Preview area */}
+          <div className='flex justify-center'>
+            <div ref={ref}/>
+          </div>
 
-        <div className='flex space-x-3 justify-center'>
-          <Select onChange={(e: any) => setFormat(e.target.value as FileExtension)}>
-            <option value='png'>PNG</option>
-            <option value='jpg'>JPG</option>
-            <option value='webp'>WEBP</option>
-            <option value='svg'>SVG</option>
-          </Select>
-          <Button onClick={onDonwloadClick}>Download</Button>
+          <div className='flex space-x-3 justify-center mt-3'>
+            <Select onChange={(e: any) => setFormat(e.target.value as FileExtension)}>
+              <option value='png'>PNG</option>
+              <option value='jpg'>JPG</option>
+              <option value='webp'>WEBP</option>
+              <option value='svg'>SVG</option>
+            </Select>
+            <Button onClick={onDonwloadClick}>Download</Button>
+          </div>
         </div>
       </div>
     </>
