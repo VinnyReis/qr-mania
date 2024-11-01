@@ -3,27 +3,28 @@ import  QRCodeStyling, { FileExtension } from 'qr-code-styling'
 import Input from './components/input';
 import Select from './components/select';
 import Button from './components/button';
+import Surface from './components/surface';
 
 const qrCode = new QRCodeStyling({
   width: 300,
   height: 300,
   data: 'https://facebook.com',
   backgroundOptions: {
-    color: "#fff",
+    color: '#fff',
   },
   dotsOptions: {
-    color: "#4267b2",
-    type: "square"
+    color: '#4267b2',
+    type: 'square'
   },
   imageOptions: {
     hideBackgroundDots: false,
-    crossOrigin: "anonymous",
+    crossOrigin: 'anonymous',
     margin: 0
   }
 });
 
 function App() {
-  const [ data, setData ] = useState('https://facebook.com');
+  const [ data, setData ] = useState<string>('https://facebook.com');
   const [ format, setFormat ] = useState<FileExtension>('png');
   const ref = useRef(null);
 
@@ -48,40 +49,40 @@ function App() {
   };
 
   return (
-    <>
-      <div className=' container my-10 mx-auto flex space-x-3'>
-        <div className='flex-auto bg-white p-3 space-y-3 border border-slate-200 rounded-md shadow-sm'>
-          <p className='flex space-x-3 font-semibold text-lg text-slate-600'>URL</p>
-          <Input
-            defaultValue='https://facebook.com'
-            onChange={(e: any) => { e.preventDefault(); setData(e.target.value)}}
-          />
-          <p className='flex space-x-3 font-semibold text-lg text-slate-600'>Cor</p>
-          <div className='flex space-x-3'>
-            <Button onClick={() => updateColor('#d20b2e')}>Vermelho</Button>
-            <Button onClick={() => updateColor('#2cba43')}>Verde</Button>
-            <Button onClick={() => updateColor('#4267b2')}>Azul</Button>
-          </div>
+    <div className=' container my-10 mx-auto flex space-x-3'>
+      <Surface className='flex-auto space-y-3'>
+        {/* QR code data options */}
+        <p className='font-semibold text-lg text-slate-600'>URL</p>
+        <Input
+          defaultValue='https://facebook.com'
+          onChange={(e: any) => { e.preventDefault(); setData(e.target.value)}}
+        />
+        {/* QR code color options */}
+        <p className='font-semibold text-lg text-slate-600'>Cor</p>
+        <div className='flex space-x-3'>
+          <Button onClick={() => updateColor('#d20b2e')}>Vermelho</Button>
+          <Button onClick={() => updateColor('#2cba43')}>Verde</Button>
+          <Button onClick={() => updateColor('#4267b2')}>Azul</Button>
         </div>
-        <div className='min-w-80 bg-white p-3 border border-slate-200 rounded-md shadow-sm'>
-          {/* QR Code Preview area */}
-          <div className='flex justify-center'>
-            <div ref={ref}/>
-          </div>
-
-          <div className='flex space-x-3 justify-center mt-3'>
-            <Select onChange={(e: any) => setFormat(e.target.value as FileExtension)}>
-              <option value='png'>PNG</option>
-              <option value='jpg'>JPG</option>
-              <option value='webp'>WEBP</option>
-              <option value='svg'>SVG</option>
-            </Select>
-            <Button onClick={onDonwloadClick}>Download</Button>
-          </div>
+      </Surface>
+      <Surface className='space-y-3'>
+        {/* QR code preview area */}
+        <div className='flex justify-center'>
+          <div ref={ref}/>
         </div>
-      </div>
-    </>
-  )
+        {/* Download options */}
+        <div className='flex space-x-3'>
+          <Select onChange={(e: any) => setFormat(e.target.value as FileExtension)}>
+            <option value='png'>PNG</option>
+            <option value='jpg'>JPG</option>
+            <option value='webp'>WEBP</option>
+            <option value='svg'>SVG</option>
+          </Select>
+          <Button onClick={onDonwloadClick}>Download</Button>
+        </div>
+      </Surface>
+    </div>
+  );
 }
 
 export default App

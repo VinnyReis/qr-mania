@@ -1,8 +1,8 @@
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  children: React.ReactElement[];
+  children: React.ReactElement | React.ReactElement[];
 };
 
-function Select({ ...props }: SelectProps){
+function Select({ children, ...props }: SelectProps){
   return(
     <select
       className='block w-full px-3 py-2 text-slate-500 text-sm font-semibold bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
@@ -12,7 +12,7 @@ function Select({ ...props }: SelectProps){
       focus:invalid:border-pink-500 focus:invalid:ring-pink-500'
       { ...props }
     >
-      {props.children}
+      {children}
     </select>
   )
 };
