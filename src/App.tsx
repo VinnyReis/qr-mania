@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import  QRCodeStyling, { CornerDotType, CornerSquareType, DotType, FileExtension, Options } from 'qr-code-styling'
+import { useState, useEffect, useRef } from 'react';
+import  QRCodeStyling, { CornerDotType, CornerSquareType, DotType, FileExtension, Options } from 'qr-code-styling';
 import Input from './components/input';
 import Select from './components/select';
 import Button from './components/button';
@@ -10,6 +10,7 @@ const qrCode = new QRCodeStyling({
   width: 300,
   height: 300,
   data: 'https://facebook.com',
+  type: 'svg',
   imageOptions: {
     hideBackgroundDots: false,
     crossOrigin: 'anonymous',
@@ -40,20 +41,20 @@ function App() {
     });
   }, [data]);
 
-  const changeColor = (color: string) => {
+  const changeDotType = (type: DotType) => {
     let newOptions = {
       ...options,
-      dotsOptions: {...options.dotsOptions, color }
+      dotsOptions: {...options.dotsOptions, type }
     };
 
     setOptions(newOptions);
     qrCode.update(newOptions);
   };
 
-  const changeDotType = (type: DotType) => {
+  const changeDotColor = (color: string) => {
     let newOptions = {
       ...options,
-      dotsOptions: {...options.dotsOptions, type }
+      dotsOptions: {...options.dotsOptions, color }
     };
 
     setOptions(newOptions);
@@ -70,10 +71,30 @@ function App() {
     qrCode.update(newOptions);
   };
 
+  const changeCornerSquareColor = (color: string ) => {
+    let newOptions = {
+      ...options,
+      cornersSquareOptions: {...options.cornersSquareOptions, color }
+    };
+
+    setOptions(newOptions);
+    qrCode.update(newOptions);
+  };
+
   const changeCornerDotType = (type: CornerDotType | undefined ) => {
     let newOptions = {
       ...options,
       cornersDotOptions: {...options.cornersDotOptions, type }
+    };
+
+    setOptions(newOptions);
+    qrCode.update(newOptions);
+  };
+
+  const changeCornerDotColor = (color: string ) => {
+    let newOptions = {
+      ...options,
+      cornersDotOptions: {...options.cornersDotOptions, color }
     };
 
     setOptions(newOptions);
@@ -96,16 +117,6 @@ function App() {
           />
         </Surface>
         <Surface className='w-full space-y-3'>
-          {/* QR code color options */}
-          <p className='font-semibold text-lg text-slate-600'>Color</p>
-          <div className='flex space-x-3'>
-            <OptionButton onClick={() => changeColor('#000000')} isActive={options?.dotsOptions?.color === '#000000'} label='Black'/>
-            <OptionButton onClick={() => changeColor('#d20b2e')} isActive={options?.dotsOptions?.color === '#d20b2e'} label='Red'/>
-            <OptionButton onClick={() => changeColor('#2cba43')} isActive={options?.dotsOptions?.color === '#2cba43'} label='Green'/>
-            <OptionButton onClick={() => changeColor('#4267b2')} isActive={options?.dotsOptions?.color === '#4267b2'} label='Blue'/>
-          </div>
-        </Surface>
-        <Surface className='w-full space-y-3'>
           {/* QR code dot options */}
           <p className='font-semibold text-lg text-slate-600'>Dots</p>
           <div className='flex space-x-3'>
@@ -116,6 +127,7 @@ function App() {
             <OptionButton onClick={() => changeDotType('classy-rounded')} isActive={options?.dotsOptions?.type === 'classy-rounded'} label='Classy Rounded'/>
             <OptionButton onClick={() => changeDotType('extra-rounded')} isActive={options?.dotsOptions?.type === 'extra-rounded'} label='Extra Rounded'/>
           </div>
+          <input type='color' onChange={(e) => changeDotColor(e.target.value)}/>
         </Surface>
         <Surface className='w-full space-y-3'>
           {/* QR code corner square options */}
@@ -126,6 +138,7 @@ function App() {
             <OptionButton onClick={() => changeCornerSquareType('dot')} isActive={options?.cornersSquareOptions?.type === 'dot'} label='Dot'/>
             <OptionButton onClick={() => changeCornerSquareType('extra-rounded')} isActive={options?.cornersSquareOptions?.type === 'extra-rounded'} label='Extra Rounded'/>
           </div>
+          <input type='color' onChange={(e) => changeCornerSquareColor(e.target.value)}/>
         </Surface>
         <Surface className='w-full space-y-3'>
           {/* QR corner dots options */}
@@ -135,6 +148,7 @@ function App() {
             <OptionButton onClick={() => changeCornerDotType('square')} isActive={options?.cornersDotOptions?.type === 'square'} label='Square'/>
             <OptionButton onClick={() => changeCornerDotType('dot')} isActive={options?.cornersDotOptions?.type === 'dot'} label='Dot'/>
           </div>
+          <input type='color' onChange={(e) => changeCornerDotColor(e.target.value)}/>
         </Surface>
       </div>
       <Surface className='space-y-3  h-full'>
