@@ -41,47 +41,43 @@ function App() {
   }, [data]);
 
   const changeColor = (color: string) => {
-    setOptions({
+    let newOptions = {
       ...options,
       dotsOptions: {...options.dotsOptions, color }
-    });
+    };
 
-    qrCode.update({
-      dotsOptions: { color }
-    });
+    setOptions(newOptions);
+    qrCode.update(newOptions);
   };
 
   const changeDotType = (type: DotType) => {
-    setOptions({
+    let newOptions = {
       ...options,
       dotsOptions: {...options.dotsOptions, type }
-    });
+    };
 
-    qrCode.update({
-      dotsOptions: { type }
-    });
+    setOptions(newOptions);
+    qrCode.update(newOptions);
   };
 
   const changeCornerSquareType = (type: CornerSquareType | undefined ) => {
-    setOptions({
+    let newOptions = {
       ...options,
       cornersSquareOptions: {...options.cornersSquareOptions, type }
-    });
+    };
 
-    qrCode.update({
-      cornersSquareOptions: { type }
-    });
+    setOptions(newOptions);
+    qrCode.update(newOptions);
   };
 
   const changeCornerDotType = (type: CornerDotType | undefined ) => {
-    setOptions({
+    let newOptions = {
       ...options,
       cornersDotOptions: {...options.cornersDotOptions, type }
-    });
+    };
 
-    qrCode.update({
-      cornersDotOptions: { type }
-    });
+    setOptions(newOptions);
+    qrCode.update(newOptions);
   };
 
   const onDonwloadClick = () => {
