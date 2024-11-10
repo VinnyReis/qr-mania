@@ -6,7 +6,7 @@ interface OptionButonProps{
   onClick: () => void
 };
 
-const OptionButton = ({ label, onClick, isActive }: OptionButonProps) => {
+function OptionButton({ label, onClick, isActive }: OptionButonProps){
   let optionButtonProps = {
     ...(isActive && { className: 'ring-2 ring-offset-2 ring-indigo-600' }),
     children: label,

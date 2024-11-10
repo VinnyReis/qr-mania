@@ -5,6 +5,7 @@ import Select from './components/select';
 import Button from './components/button';
 import Surface from './components/surface';
 import OptionButton from './components/option_button';
+import ColorPicker from './components/color_picker';
 
 const qrCode = new QRCodeStyling({
   width: 300,
@@ -21,6 +22,12 @@ const qrCode = new QRCodeStyling({
 const defaultOptions = {
   dotsOptions: {
     type: 'square' as DotType,
+    color: '#000000'
+  },
+  cornersSquareOptions:{
+    color: '#000000'
+  },
+  cornersDotOptions:{
     color: '#000000'
   }
 };
@@ -114,6 +121,7 @@ function App() {
           <Input
             defaultValue='https://facebook.com'
             onChange={(e: any) => { e.preventDefault(); setData(e.target.value)}}
+            className='w-full'
           />
         </Surface>
         <Surface className='w-full space-y-3'>
@@ -127,7 +135,7 @@ function App() {
             <OptionButton onClick={() => changeDotType('classy-rounded')} isActive={options?.dotsOptions?.type === 'classy-rounded'} label='Classy Rounded'/>
             <OptionButton onClick={() => changeDotType('extra-rounded')} isActive={options?.dotsOptions?.type === 'extra-rounded'} label='Extra Rounded'/>
           </div>
-          <input type='color' onChange={(e) => changeDotColor(e.target.value)}/>
+          <ColorPicker onChange={(e) => changeDotColor(e.target.value)} value={options?.dotsOptions?.color}/>
         </Surface>
         <Surface className='w-full space-y-3'>
           {/* QR code corner square options */}
@@ -138,7 +146,7 @@ function App() {
             <OptionButton onClick={() => changeCornerSquareType('dot')} isActive={options?.cornersSquareOptions?.type === 'dot'} label='Dot'/>
             <OptionButton onClick={() => changeCornerSquareType('extra-rounded')} isActive={options?.cornersSquareOptions?.type === 'extra-rounded'} label='Extra Rounded'/>
           </div>
-          <input type='color' onChange={(e) => changeCornerSquareColor(e.target.value)}/>
+          <ColorPicker onChange={(e) => changeCornerSquareColor(e.target.value)} value={options?.cornersSquareOptions?.color}/>
         </Surface>
         <Surface className='w-full space-y-3'>
           {/* QR corner dots options */}
@@ -148,7 +156,7 @@ function App() {
             <OptionButton onClick={() => changeCornerDotType('square')} isActive={options?.cornersDotOptions?.type === 'square'} label='Square'/>
             <OptionButton onClick={() => changeCornerDotType('dot')} isActive={options?.cornersDotOptions?.type === 'dot'} label='Dot'/>
           </div>
-          <input type='color' onChange={(e) => changeCornerDotColor(e.target.value)}/>
+          <ColorPicker onChange={(e) => changeCornerDotColor(e.target.value)} value={options?.cornersDotOptions?.color}/>
         </Surface>
       </div>
       <Surface className='space-y-3  h-full'>
