@@ -6,6 +6,9 @@ import Button from './components/button';
 import Surface from './components/surface';
 import OptionButton from './components/option_button';
 import ColorPicker from './components/color_picker';
+import hearth from './assets/images/hearth.png';
+import holly_berry from './assets/images/holly_berry.png';
+import lemon from './assets/images/lemon.png';
 
 const qrCode = new QRCodeStyling({
   width: 300,
@@ -32,6 +35,67 @@ const defaultOptions = {
   }
 };
 
+const pinkPurpleTemplate = {
+  image: hearth,
+  imageOptions: {
+    hideBackgroundDots: true,
+    margin: 5
+  }, 
+  dotsOptions: {
+    type: 'dots' as DotType,
+    color: '#9f6eff'
+  },
+  cornersSquareOptions:{
+    type: 'dot' as CornerSquareType,
+    color: '#ff6caf'
+  },
+  cornersDotOptions:{
+    type: 'dot' as CornerDotType,
+    color: '#ff6caf'
+  },
+};
+
+const christmasTemplate = {
+  image: holly_berry,
+  imageOptions: {
+    hideBackgroundDots: true,
+    imageSize: 0.4,
+    margin: 0
+  }, 
+  dotsOptions: {
+    type: 'dots' as DotType,
+    color: '#d31e19'
+  },
+  cornersSquareOptions:{
+    type: 'extra-rounded' as CornerSquareType,
+    color: '#286e0e'
+  },
+  cornersDotOptions:{
+    type: 'dot' as CornerDotType,
+    color: '#d61100'
+  },
+};
+
+const lemonadeTemplate = {
+  image: lemon,
+  imageOptions: {
+    hideBackgroundDots: true,
+    margin: 8
+  }, 
+  dotsOptions: {
+    type: 'extra-rounded' as DotType,
+    color: '#74a829'
+  },
+  cornersSquareOptions:{
+    type: 'dot' as CornerSquareType,
+    color: '#74a829'
+  },
+  cornersDotOptions:{
+    type: 'dot' as CornerDotType,
+    color: '#ffce01'
+  },
+};
+
 function App() {
   const [ data, setData ] = useState<string>('https://facebook.com');
   const [ format, setFormat ] = useState<FileExtension>('png');
@@ -47,6 +111,11 @@ function App() {
       data
     });
   }, [data]);
+
+  const changeTemplate = (template: object) => {
+    setOptions(template);
+    qrCode.update(template);
+  };
 
   const changeDotType = (type: DotType) => {
     let newOptions = {
@@ -123,6 +192,15 @@ function App() {
             onChange={(e: any) => { e.preventDefault(); setData(e.target.value)}}
             className='w-full'
           />
+        </Surface>
+        <Surface className='w-full space-y-3'>
+          {/* QR code dot options */}
+          <p className='font-semibold text-lg text-slate-600'>Templates</p>
+          <div className='flex space-x-3'>
+            <OptionButton onClick={() => changeTemplate(pinkPurpleTemplate)} isActive={options === pinkPurpleTemplate} label='Pink Purple'/>
+            <OptionButton onClick={() => changeTemplate(christmasTemplate)} isActive={options === christmasTemplate} label='Christmas'/>
+            <OptionButton onClick={() => changeTemplate(lemonadeTemplate)} isActive={options === lemonadeTemplate} label='Lemonade'/>
+          </div>
         </Surface>
         <Surface className='w-full space-y-3'>
           {/* QR code dot options */}
