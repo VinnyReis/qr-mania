@@ -1,20 +1,20 @@
-import Button from '../button';
-
 interface OptionButonProps{
-  label: string,
-  isActive: boolean,
-  onClick: () => void
+  image: string,
+  isActive?: boolean,
+  onClick?: () => void,
 };
 
-function OptionButton({ label, onClick, isActive }: OptionButonProps){
-  let optionButtonProps = {
-    ...(isActive && { className: 'ring-2 ring-offset-2 ring-indigo-600' }),
-    children: label,
-    onClick
-  };
-
+function OptionButton({ image, isActive, onClick }: OptionButonProps){
   return(
-    <Button {...optionButtonProps}/>
+    <button
+      onClick={onClick}
+      className={`p-3 text-sm text-slate-600 font-semibold rounded-md border border-slate-300 shadow-sm
+      hover:bg-slate-50
+      focus:outline-none
+      ${isActive && 'ring-2 ring-offset-2 ring-indigo-600'}`}
+    >
+      <img src={image}/>
+    </button>
   )
 };
 export default OptionButton;
