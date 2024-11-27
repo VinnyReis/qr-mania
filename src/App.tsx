@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import  QRCodeStyling, { CornerDotType, CornerSquareType, DotType, FileExtension, Options } from 'qr-code-styling';
+import { defaultOptions, pinkPurpleTemplate, christmasTemplate, lemonadeTemplate } from './templates';
+import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, FileExtension, Options } from 'qr-code-styling';
 import Input from './components/input';
 import Select from './components/select';
 import Button from './components/button';
@@ -37,83 +38,6 @@ const qrCode = new QRCodeStyling({
   }
 });
 
-const defaultOptions = {
-  image: undefined,
-  dotsOptions: {
-    type: 'square' as DotType,
-    color: '#000000'
-  },
-  cornersSquareOptions:{
-    type: 'square' as CornerSquareType,
-    color: '#000000'
-  },
-  cornersDotOptions:{
-    type: 'square' as CornerDotType,
-    color: '#000000'
-  }
-};
-
-const pinkPurpleTemplate = {
-  image: hearth,
-  imageOptions: {
-    hideBackgroundDots: true,
-    margin: 5
-  }, 
-  dotsOptions: {
-    type: 'dots' as DotType,
-    color: '#9f6eff'
-  },
-  cornersSquareOptions:{
-    type: 'dot' as CornerSquareType,
-    color: '#ff6caf'
-  },
-  cornersDotOptions:{
-    type: 'dot' as CornerDotType,
-    color: '#ff6caf'
-  },
-};
-
-const christmasTemplate = {
-  image: holly_berry,
-  imageOptions: {
-    hideBackgroundDots: true,
-    imageSize: 0.4,
-    margin: 0
-  }, 
-  dotsOptions: {
-    type: 'dots' as DotType,
-    color: '#d31e19'
-  },
-  cornersSquareOptions:{
-    type: 'extra-rounded' as CornerSquareType,
-    color: '#286e0e'
-  },
-  cornersDotOptions:{
-    type: 'dot' as CornerDotType,
-    color: '#d61100'
-  },
-};
-
-const lemonadeTemplate = {
-  image: lemon,
-  imageOptions: {
-    hideBackgroundDots: true,
-    margin: 8
-  }, 
-  dotsOptions: {
-    type: 'extra-rounded' as DotType,
-    color: '#74a829'
-  },
-  cornersSquareOptions:{
-    type: 'dot' as CornerSquareType,
-    color: '#74a829'
-  },
-  cornersDotOptions:{
-    type: 'dot' as CornerDotType,
-    color: '#ffce01'
-  },
-};
-
 function App() {
   const [ format, setFormat ] = useState<FileExtension>('png');
   const [ options, setOptions ] = useState<Partial<Options>>(defaultOptions);
@@ -132,30 +56,24 @@ function App() {
   };
 
   const changeDotType = (type: DotType) => {
-    let newOptions = {
+    setOptions({
       ...options,
       dotsOptions: {...options.dotsOptions, type }
-    };
-
-    setOptions(newOptions);
+    });
   };
 
   const changeDotColor = (color: string) => {
-    let newOptions = {
+    setOptions({
       ...options,
       dotsOptions: {...options.dotsOptions, color }
-    };
-
-    setOptions(newOptions);
+    });
   };
 
   const changeCornerSquareType = (type: CornerSquareType | undefined ) => {
-    let newOptions = {
+    setOptions({
       ...options,
       cornersSquareOptions: {...options.cornersSquareOptions, type }
-    };
-
-    setOptions(newOptions);
+    });
   };
 
   const changeCornerSquareColor = (color: string ) => {
@@ -359,7 +277,7 @@ function App() {
           </Surface>
         </div>
         <Surface className='w-full space-y-3'>
-          {/* QR code dot options */}
+          {/* QR code logo options */}
           <p className='font-semibold text-lg text-slate-600'>Logo</p>
           <div className='flex space-x-3'>
             <div className={'w-1/12'}>
